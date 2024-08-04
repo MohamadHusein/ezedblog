@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 
@@ -26,7 +27,8 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
-
+    def get_absolute_url(self):
+        return reverse("blog:article_detail", kwargs={"pk": self.pk})
 
 
     def __str__(self):
