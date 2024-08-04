@@ -29,6 +29,9 @@ class Article(models.Model):
 
 
 
+
+
+
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.title)
         super(Article , self).save()
