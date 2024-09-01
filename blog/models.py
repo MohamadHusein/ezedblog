@@ -65,3 +65,32 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.article} - {self.created_at}'
+
+
+
+
+
+
+
+class Massage(models.Model):
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    email = models.EmailField()
+    age = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True , null=True)
+
+
+    def __str__(self):
+        return self.title
+
+
+
+
+
+
+
+
+
+
+
+
