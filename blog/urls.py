@@ -7,5 +7,6 @@ urlpatterns = [
     path('list' , views.articles_list , name='articles_list'),
     path('category/<int:pk>',views.category_detail,  name='category_detail'),
     path('search/' , views.search , name='search_articles'),
-    path('contactus/' , views.contactus, name='contactus'),
+    path('contactus' , views.contactus, name='contactus'),
+    path('users' , views.UserList.as_view() , name='users_list'),
 ]

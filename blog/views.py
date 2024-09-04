@@ -2,6 +2,11 @@ from django.shortcuts import render , get_object_or_404
 from blog.models import Article, Category , Comment , Massage
 from django.core.paginator import Paginator
 from .forms import ContactUsForm , MassageForm
+from django.views.generic.base import View , TemplateView , RedirectView
+from django.contrib.auth.models import User
+from django.views.generic import ListView , DetailView
+
+
 
 
 def article_detail(request , slug):
@@ -58,6 +63,30 @@ def contactus(request):
     else:
         form = MassageForm()
     return render(request , 'blog/contact_us.html', {'form':form})
+
+
+
+
+
+
+class ArticleList(ListView):
+    queryset = Article.objects.all()
+    template_name = 'blog/articles_list.html'
+
+
+
+
+class UserList(ListView):
+    queryset = User.objects.all()
+    template_name = 'blog/user_list.html'
+
+
+
+
+
+
+
+
 
 
 
