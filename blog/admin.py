@@ -40,5 +40,5 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(models.Category)
 admin.site.register(models.Comment)
 admin.site.register(models.Massage)
-
+admin.site.register(models.Like)
 

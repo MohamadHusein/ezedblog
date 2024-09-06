@@ -1,10 +1,11 @@
-from django.shortcuts import render , get_object_or_404
-from blog.models import Article, Category , Comment , Massage
+from django.shortcuts import render , get_object_or_404 , redirect
+from blog.models import Article, Category , Comment , Massage , Like
 from django.core.paginator import Paginator
 from .forms import ContactUsForm , MassageForm
 from django.views.generic.base import View , TemplateView , RedirectView
 from django.contrib.auth.models import User
 from django.views.generic import ListView , DetailView
+from django.http import JsonResponse
 
 
 
@@ -67,6 +68,19 @@ def contactus(request):
 
 
 
+class ArticleDetailView(DetailView):
+    model = Article
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.likes.filter(article__slug=self.object.slug , user_id=self.request.user.id).exists():
+            context['is_liked'] = True
+        else:
+            context['is_liked'] = False
+        return context
+
+
+
 
 
 class ArticleList(ListView):
@@ -85,6 +99,14 @@ class UserList(ListView):
 
 
 
+def like(request , slug , pk):
+    try:
+        like = Like.objects.get(article__slug=slug , user_id=request.user.id)
+        like.delete()
+        return JsonResponse({'response': 'unliked'})
+    except:
+        Like.objects.create(article_id=pk , user_id=request.user.id)
+        return JsonResponse({'response': 'liked'})
 
 
 
